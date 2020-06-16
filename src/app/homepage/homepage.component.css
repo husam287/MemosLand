@@ -15,3 +15,11 @@ header{
     top:0;
     left:0;
 }
+
+
+/*if the screen is medium, it make the sign up form more down*/
+@media(min-width: 0px) and (max-width:768px){
+    .goToWhitePlace{
+        margin-bottom: 200px;
+    }
+}
