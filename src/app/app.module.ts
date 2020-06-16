@@ -7,6 +7,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { MemoslandTextComponent } from './memosland-text/memosland-text.component';
+import { SignupComponent } from './homepage/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { MemoslandTextComponent } from './memosland-text/memosland-text.componen
     NavbarComponent,
     FooterComponent,
     HomepageComponent,
-    MemoslandTextComponent
+    MemoslandTextComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
