@@ -3,10 +3,7 @@ footer{
     background-image: url(../../assets/photos/footerImg.jpg);
     background-size: contain;
     height: 200px;
-    position:absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    margin-top: 400px;
 }
 footer img{
     width: 150px;
