@@ -7,13 +7,14 @@
     width: auto;
 }
 .blackOverlay{
-    
-  
   width: 100%; /* Full width (cover the whole page) */
   height: 100%; /* Full height (cover the whole page) */
-  
   background-color: rgba(0,0,0,0.7); /* Black background with opacity */
-  z-index: 2;
-   /* Specify a stack order in case you're using a different order for other elements */
+  z-index: 1; /* Specify a stack order in case you're using a different order for other elements */
     
+}
+.vertical-center{
+  position: relative;
+    top :50%;
+    transform: translateY(-50%);
 }

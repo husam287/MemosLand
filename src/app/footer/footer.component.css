@@ -1,9 +1,10 @@
 footer{
-   
+    /*background for the footer*/
     background-image: url(../../assets/photos/footerImg.jpg);
     background-size: contain;
-    height: 300px;
-    z-index: 1;
-   
+    height: 10%;
+}
+footer img{
+    width: 150px;
     
 }
