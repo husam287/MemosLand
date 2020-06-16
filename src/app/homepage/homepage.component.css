@@ -1,3 +1,8 @@
+main{
+    /*Adjust the spacing betwwen footer and header*/
+    min-height: calc(100vh-200px-600px);
+}
+
 
 .background-blur{
     background-image: url(../../assets/photos/bgImg.jpg);
@@ -5,7 +10,7 @@
     background-position: center;
     background-attachment: fixed;
     filter: blur(4px);
-   min-height: 600px; /*same as header*/
+    height: 600px; /*same as header*/
   
 }
 header{
@@ -13,11 +18,12 @@ header{
     height: 600px; /*same as background*/
     position: absolute; /*teleport it over the backfround*/
     top:0;
-    left:0;
+    left:0; 
+  
 }
 
 
-/*if the screen is medium, it make the sign up form more down*/
+/*if the screen is medium, it make the sign up form more*/
 @media(min-width: 0px) and (max-width:768px){
     .goToWhitePlace{
         margin-bottom: 200px;
