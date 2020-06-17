@@ -1,1 +1,30 @@
-<p>memos-leader-message works!</p>
+<!--
+    Message consists of => 
+    src "string"
+    title "string"
+    message "string"
+    buttons "array"
+-->
+
+
+
+<!--The message-->
+<div class="card mb-3 p-3">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img src="{{photo}}" class="card-img" alt="memoLeader"> <!--Message photo is var from ts file-->
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{title}}</h5> <!--Message title is var from ts file-->
+          <p class="card-text">{{info}}</p> <!--Message info is var from ts file-->
+          <button 
+          *ngFor="let btn of buttons"
+          class="btn btn-primary mr-3 text-secondary">{{btn}}</button> <!--buttons is array from ts file-->
+        </div>
+      </div>
+    </div>
+</div>
+           
+      
+

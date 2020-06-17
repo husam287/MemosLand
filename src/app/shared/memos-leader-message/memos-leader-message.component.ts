@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-memos-leader-message',
@@ -7,9 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MemosLeaderMessageComponent implements OnInit {
 
-  constructor() { }
+
+  // those will be got from the component tags as attributs
+  @Input('src') photo:string; 
+  @Input('title') title:string;
+  @Input('message') info:string;
+  @Input('buttons') buttons=[];
+
+  
+  
+  
+  constructor() { 
+
+  }
 
   ngOnInit(): void {
+    console.log(this.photo);
   }
 
 }
