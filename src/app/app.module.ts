@@ -8,6 +8,8 @@ import { FooterComponent } from './footer/footer.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { MemoslandTextComponent } from './memosland-text/memosland-text.component';
 import { SignupComponent } from './homepage/signup/signup.component';
+import { MemosComponent } from './memos/memos.component';
+
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import { SignupComponent } from './homepage/signup/signup.component';
     FooterComponent,
     HomepageComponent,
     MemoslandTextComponent,
-    SignupComponent
+    SignupComponent,
+    MemosComponent
   ],
   imports: [
     BrowserModule,
