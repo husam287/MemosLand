@@ -22,7 +22,6 @@ header{
   
 }
 
-
 /*if the screen is medium, it make the sign up form more*/
 @media(min-width: 0px) and (max-width:768px){
     .goToWhitePlace{
