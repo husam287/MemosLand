@@ -4,27 +4,26 @@ main{
 }
 
 
+header{
+    position: relative; /*all absolutes are relative to this*/
+}
+
 .background-blur{
+    position: absolute; /*Relative to the header only*/
+    left: 0;
+    right:0;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
     background-image: url(../../assets/photos/bgImg.jpg);
     background-size:cover;
     background-position: center;
     background-attachment: fixed;
     filter: blur(4px);
-    height: 600px; /*same as header*/
+    height: 1000px; /*same as header*/
   
 }
-header{
-    width: 100%; 
-    height: 600px; /*same as background*/
-    position: absolute; /*teleport it over the backfround*/
-    top:0;
-    left:0; 
-  
-}
-
-/*if the screen is medium, it make the sign up form more*/
-@media(min-width: 0px) and (max-width:768px){
-    .goToWhitePlace{
-        margin-bottom: 200px;
-    }
+.content{
+    position: relative; /*Any thing in the content is relative to this div*/
+    z-index: 2; 
 }
