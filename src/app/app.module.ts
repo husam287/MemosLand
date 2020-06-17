@@ -9,6 +9,9 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { MemoslandTextComponent } from './memosland-text/memosland-text.component';
 import { SignupComponent } from './homepage/signup/signup.component';
 import { MemosComponent } from './memos/memos.component';
+import { MyMemosComponent } from './memos/my-memos/my-memos.component';
+import { AddMemoComponent } from './memos/add-memo/add-memo.component';
+import { MemosLeaderMessageComponent } from './shared/memos-leader-message/memos-leader-message.component';
 
 
 @NgModule({
@@ -19,7 +22,10 @@ import { MemosComponent } from './memos/memos.component';
     HomepageComponent,
     MemoslandTextComponent,
     SignupComponent,
-    MemosComponent
+    MemosComponent,
+    MyMemosComponent,
+    AddMemoComponent,
+    MemosLeaderMessageComponent
   ],
   imports: [
     BrowserModule,
