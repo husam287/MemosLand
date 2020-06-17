@@ -7,6 +7,14 @@ footer{
     margin-top: 300px;
 }
 footer img{
-    width: 150px;
+    width: 8.5rem;
     
+}
+@media only screen and (max-width:506px){
+    footer li,.phone_no{
+        padding-left: 2px;
+        padding-right: 0px;
+    }
+    
+
 }
