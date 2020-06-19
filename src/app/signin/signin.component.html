@@ -1,1 +1,42 @@
-<p>signin works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-light mb-2 shadow">
+                    <div class="card-header text-center">SIGN IN</div>
+                    <div class="card-body">
+                        <form>
+                            <!--Username field-->
+                            <div class="form-group">
+                                <label for="username">UserName</label>
+                                <input 
+                                class="form-control" 
+                                name="username" 
+                                placeholder="UserName" 
+                                type="text"
+                                required>
+                            </div>
+                            <!--password field-->
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input 
+                                class="form-control" 
+                                name="password" 
+                                placeholder="Password" 
+                                type="password"
+                                required>
+                            </div>
+                            
+                            <!--submit button-->
+                            <div class="text-center">
+                                <button 
+                                class="btn btn-outline-secondary text-primary font-weight-bold"
+                                type="submit"
+                                (click)="goToMemos()">Sign In
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+        </div>
+    </div>
+</div>
+</div>
