@@ -19,7 +19,7 @@
                                     </p>
                                 </div>
                                 <!--The get started button-->
-                                <button 
+                                <a 
                                 class="
                                 btn 
                                 btn-outline-primary 
@@ -27,9 +27,9 @@
                                 text-secondary 
                                 font-weight-bold 
                                 mt-5"
-                                type="button">
+                                routerLink="/memos">
                                     Get Started
-                                </button>
+                                </a>
             
                                 <!--Slogan-->
                                 <div class="text-white text-center mt-4">
@@ -68,7 +68,7 @@
                 title="Hi My Friend, Welcome To MemosLand"
                 message="I'm the memos' leader here in the website, 
                 you can call me ML as my friends do because you are now one of them ♥"
-                [buttons]="['Sign In','Make Account Now']"
+                [buttons]="[{name:'Sign In',link:'/sign-in'},{name:'Make Account Now',link:'/sign-up'}]"
                 ></app-memos-leader-message>
         </div>
         

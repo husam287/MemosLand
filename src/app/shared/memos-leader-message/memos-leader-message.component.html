@@ -20,7 +20,8 @@
           <p class="card-text">{{info}}</p> <!--Message info is var from ts file-->
           <button 
           *ngFor="let btn of buttons"
-          class="btn btn-primary mr-3 text-secondary">{{btn}}</button> <!--buttons is array from ts file-->
+          class="btn btn-primary mr-3 text-secondary"
+          routerLink="{{btn.link}}">{{btn.name}}</button> <!--buttons is array from ts file-->
         </div>
       </div>
     </div>

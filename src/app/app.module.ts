@@ -12,6 +12,7 @@ import { MemosComponent } from './memos/memos.component';
 import { MyMemosComponent } from './memos/my-memos/my-memos.component';
 import { AddMemoComponent } from './memos/add-memo/add-memo.component';
 import { MemosLeaderMessageComponent } from './shared/memos-leader-message/memos-leader-message.component';
+import { SigninComponent } from './signin/signin.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { MemosLeaderMessageComponent } from './shared/memos-leader-message/memos
     MemosComponent,
     MyMemosComponent,
     AddMemoComponent,
-    MemosLeaderMessageComponent
+    MemosLeaderMessageComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,

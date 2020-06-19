@@ -22,7 +22,6 @@ export class MemosLeaderMessageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.photo);
   }
 
 }

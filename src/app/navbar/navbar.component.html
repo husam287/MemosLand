@@ -1,34 +1,39 @@
 <nav class="navbar navbar-expand-md navbar-light  fixed-top">
     <div class="container">
         
-            <div class="float-left">
-                <a class="navbar-brand " href="#">
-                                        <!--here to work on github pages must be as this-->
-                    <img class="logo-small" src="assets/photos/memosLandText.png">
-                </a>
-            </div>
+    
+        <a class="navbar-brand " [routerLink]="['/']">
+                                    <!--here to work on github pages must be as this-->
+            <img class="logo-small" src="assets/photos/memosLandText.png">
+        </a>
+            
 
-            <div class="float-right">
-                    <!--The button to be replaced-->
-                <button class="navbar-toggler bg-secondary px-4" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
             
+        <button class="navbar-toggler bg-secondary" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
             
-                <!--ml-for-nav is to shift it to right-->
-                <div class="collapse navbar-collapse text-center " id="navbarNavAltMarkup"> 
-                    <div class="navbar-nav">
-                    <a class="nav-item nav-link text-light bg-primary border-0 rounded" href="#">Home</a>
-                    <a class="nav-item nav-link text-light bg-secondary border-0 rounded" href="#">Add Memo</a>
-                    <a class="nav-item nav-link text-light bg-primary border-0 rounded" href="#">My Memos</a>
-                    <a class="nav-item nav-link text-light bg-secondary border-0 rounded" href="#">Sign In</a>
-                    </div>
+        
+        <div class="collapse navbar-collapse text-center" id="navbarNavAltMarkup"> 
+                <div class="navbar-nav ml-auto">
+                    <a class="nav-item nav-link text-light bg-primary border-0 rounded" 
+                        [routerLink]="['/home']">Home</a>
+
+                    <a class="nav-item nav-link text-light bg-secondary border-0 rounded" 
+                        [routerLink]="['/memos','add']">Add Memo</a>
+
+                    <a class="nav-item nav-link text-light bg-primary border-0 rounded" 
+                        [routerLink]="['/memos','view']">My Memos</a>
+
+                    <a class="nav-item nav-link text-light bg-secondary border-0 rounded" 
+                        [routerLink]="['/sign-in']">Sign In</a>
                 </div>
             </div>
+    </div>
         
         
         
-    </div> 
+     
 </nav>
 
 
