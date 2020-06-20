@@ -7,15 +7,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./signin.component.css']
 })
 export class SigninComponent implements OnInit {
-route:Router;
-  constructor() { }
+
+  constructor(private route:Router) { }
 
   ngOnInit(): void {
   }
 
-  //to go to memos after sign in
-  goToMemos(){
-    
-  }
-
+  
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { memoModel } from '../memo.model';
 
 @Component({
   selector: 'app-my-memos',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./my-memos.component.css']
 })
 export class MyMemosComponent implements OnInit {
-
+  memos=[];
   constructor() { }
 
   ngOnInit(): void {
