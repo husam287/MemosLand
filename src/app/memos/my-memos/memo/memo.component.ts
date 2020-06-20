@@ -8,7 +8,7 @@ import { memoModel } from '../../memo.model';
 })
 export class MemoComponent implements OnInit {
 @Input() memo:memoModel;
-
+@Input() id:number;
 
 
   constructor() { }

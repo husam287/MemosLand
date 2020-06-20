@@ -1,7 +1,8 @@
 <div class="container">
    
         <app-memo 
-        *ngFor="let memo of memos"
-        [memo]="memo"></app-memo>
+        *ngFor="let memo of memos;let id=index"
+        [memo]="memo"
+        [id]="id"></app-memo>
     
 </div>
