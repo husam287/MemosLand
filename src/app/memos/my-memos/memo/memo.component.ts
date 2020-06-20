@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { memoModel } from '../../memo.model';
 
 @Component({
   selector: 'app-memo',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./memo.component.css']
 })
 export class MemoComponent implements OnInit {
+@Input() memo:memoModel;
+
+
 
   constructor() { }
 

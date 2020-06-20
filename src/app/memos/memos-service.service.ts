@@ -5,8 +5,8 @@ export class MemosServiceService {
   
   //array of memories
   private memos=[
-    new memoModel('test',"it's a test memory hi from test",'https://bit.ly/31bypTZ',new Date(2018,3,27)),
-    new memoModel('Hossam',"hiii this is me hhhh hhhhhhh hhhhhhhhhh",'https://bit.ly/2NcIh7z',new Date(2019,4,12))
+    new memoModel('test',"it's a test memory hi from test",'https://bit.ly/3dlmCoe',new Date(2018,3,27)),
+    new memoModel('Hossam',"hiii this is me hhhh hhhhhhh hhhhhhhhhh",'https://bit.ly/2Bq6R20',new Date(2019,4,12))
   ];
   constructor() { }
 

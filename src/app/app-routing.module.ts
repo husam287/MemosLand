@@ -6,6 +6,7 @@ import { AddMemoComponent } from './memos/add-memo/add-memo.component';
 import { MyMemosComponent } from './memos/my-memos/my-memos.component';
 import { SignupComponent } from './homepage/signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
+import { MemosMessageComponent } from './memos/memos-message/memos-message.component';
 
 
 const routes: Routes = [
@@ -15,7 +16,7 @@ const routes: Routes = [
  {path:'sign-in',component:SigninComponent},
  {path:'memos',component:MemosComponent,
     children:[
-      {path:'',component:MemosComponent},
+      {path:'',component:MemosMessageComponent},
       {path:'add',component:AddMemoComponent},
       {path:'view',component:MyMemosComponent}
     ]
