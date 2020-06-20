@@ -1,1 +1,75 @@
-<p>add-memo works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-light mb-2 shadow">
+                    <div class="card-header text-center">
+                        <app-memos-leader-message
+                        title="Adding a Memo"
+                        message="Because I'm the leader here I'll be here with you. 
+                        The recruitment of a memo must be done carefully. I wish this memo was a good one ♥"
+                        src="assets/photos/memo-thinking.png"></app-memos-leader-message>
+                    </div>
+                    <div class="card-body">
+                        <form (ngSubmit)="onSubmit(memoForm)" #memoForm="ngForm">
+                            <!--Username field-->
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input 
+                                class="form-control" 
+                                name="title" 
+                                placeholder="Title" 
+                                type="text"
+                                ngModel
+                                required>
+                            </div>
+                            <!--Date field-->
+                            <div class="form-group">
+                                <label for="date">Date</label>
+                                <input 
+                                class="form-control" 
+                                name="date" 
+                                placeholder="Date" 
+                                type="date"
+                                ngModel
+                                required>
+                            </div>
+                        
+                            <!--Memory details field-->
+                            <div class="form-group">
+                                <label for="info">What happend in that day ♥</label>
+                                <textarea 
+                                class="form-control" 
+                                name="info"
+                                rows="5"
+                                ngModel 
+                                required>
+                                </textarea>
+                            </div>
+
+                            <!--Photo upload-->
+                            <div class="form-group">
+                                <label for="photo">Photo</label>
+                                <input 
+                                class="d-block" 
+                                name="photo"  
+                                type="file"
+                                ngModel
+                                required>
+                            </div>
+
+                            <!--submit button-->
+                            <div class="mt-5">
+                                <button 
+                                class="btn btn-secondary text-primary font-weight-bold"
+                                type="submit">Add The Memo
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+        </div>
+    </div>
+</div>
+
+</div>
+    
+

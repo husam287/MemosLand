@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-add-memo',
@@ -12,4 +13,7 @@ export class AddMemoComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onSubmit(memoForm:NgForm){
+    console.log(memoForm);
+  }
 }
