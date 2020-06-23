@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage';
-import { finalize,tap } from 'rxjs/operators';
-import { async } from '@angular/core/testing';
+import { finalize} from 'rxjs/operators';
+import { promise } from 'protractor';
 
 
 @Component({
@@ -20,23 +20,45 @@ export class AddMemoComponent implements OnInit {
   precentage:Observable<number | null>;
   //_________________________________________________
 
-
-  selectedImg=null;  //for select image
-
+  dataSubject=new Subject<string>(); //to get url after finish upload
+  selectedImg=null;  //for the selected image
+  snapshotSubscription:Subscription;
   constructor(private storage:AngularFireStorage) { }
 
 
   ngOnInit(): void {
   }
 
+
+
   onSubmit(memoForm:NgForm){
     this.startUpload(this.selectedImg);
     
+   let subs:Subscription= this.dataSubject.subscribe(
+      (url)=>{
+
+        console.log(url);
+        this.snapshotSubscription.unsubscribe();
+        this.url=null;
+        this.precentage=null;
+        memoForm.resetForm();
+        subs.unsubscribe();
+        
+    })
+    
   }
+    
+    
+     
+    
+
+    
+
+
+  
 
   onChange(event:FileList){
     this.selectedImg=event;
-  
   }
 
 
@@ -53,15 +75,17 @@ export class AddMemoComponent implements OnInit {
 
     const path =`memos/${new Date().getTime()}_${file.name}`;
     const ref=this.storage.ref(path);
-    this.task=this.storage.upload(path,file);
-    this.precentage=this.task.percentageChanges();
     
-    this.task.snapshotChanges().pipe(
-      finalize(async ()=>{
-        this.url= await ref.getDownloadURL().toPromise();
-      })
-    ).subscribe()
-   
+      this.task=this.storage.upload(path,file);
+      this.precentage=this.task.percentageChanges();
+      
+      this.snapshotSubscription=this.task.snapshotChanges().pipe(
+        finalize(async ()=>{
+          this.url= await ref.getDownloadURL().toPromise();
+          this.dataSubject.next(await ref.getDownloadURL().toPromise());
+        })
+      ).subscribe()
+    
   }
 
 
