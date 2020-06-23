@@ -1,6 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireStorage, AngularFireStorageModule } from 'angularfire2/storage';
+import { environment } from '../environments/environment';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +24,7 @@ import { MemoEditComponent } from './memos/my-memos/memo-edit/memo-edit.componen
 import { MemosMessageComponent } from './memos/memos-message/memos-message.component';
 
 
+export const firebaseconfig =environment.firebaseConfig;
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +45,10 @@ import { MemosMessageComponent } from './memos/memos-message/memos-message.compo
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(firebaseconfig),
+    AngularFirestoreModule,
+    AngularFireStorageModule
   ],
   providers: [],
   bootstrap: [AppComponent]

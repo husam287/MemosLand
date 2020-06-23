@@ -48,15 +48,22 @@
 
                             <!--Photo upload-->
                             <div class="form-group">
-                                <label for="photo">Photo</label>
+                                <label for="url">Photo</label>
                                 <input 
                                 class="d-block" 
-                                name="photo"  
+                                name="url"  
                                 type="file"
-                                ngModel
+                                (change)="onChange($event.target.files)"
                                 required>
+                                <div class="spinner-border mt-3" role="status" *ngIf="precentage && !url">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <small *ngIf="url" class="text-success mt-3">Uploaded Successfully! {{url}}</small>
+                                
+                              
                             </div>
-
+                            
+                            
                             <!--submit button-->
                             <div class="mt-5">
                                 <button 
