@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <div class="card border-light mb-2 shadow">
+              <div class="card border-light mb-2 shadow">
                     <div class="card-header text-center">
                         <app-memos-leader-message
                         title="Adding a Memo"
@@ -10,7 +10,8 @@
                         src="assets/photos/memo-thinking.png"></app-memos-leader-message>
                     </div>
                     <div class="card-body">
-                        <form (ngSubmit)="onSubmit(memoForm)" #memoForm="ngForm">
+                        <form (ngSubmit)="onSubmit()" #memoForm="ngForm">
+
                             <!--Username field-->
                             <div class="form-group">
                                 <label for="title">Title</label>
@@ -22,17 +23,17 @@
                                 ngModel
                                 required>
                             </div>
+
                             <!--Date field-->
                             <div class="form-group">
                                 <label for="date">Date</label>
                                 <input 
                                 class="form-control" 
                                 name="date" 
-                                placeholder="Date" 
                                 type="date"
                                 ngModel
                                 required>
-                            </div>
+                            </div> 
                         
                             <!--Memory details field-->
                             <div class="form-group">
@@ -53,30 +54,40 @@
                                 class="d-block" 
                                 name="url"  
                                 type="file"
+                                #fileInput
                                 (change)="onChange($event.target.files)"
                                 required>
-                                <div class="spinner-border mt-3" role="status" *ngIf="precentage && !url">
-                                    <span class="sr-only">Loading...</span>
-                                </div>
-                                <small *ngIf="url" class="text-success mt-3">Uploaded Successfully! {{url}}</small>
+                            </div>
                                 
-                              
-                            </div>
-                            
-                            
                             <!--submit button-->
-                            <div class="mt-5">
-                                <button 
-                                class="btn btn-secondary text-primary font-weight-bold"
-                                type="submit">Add The Memo
-                                </button>
+                            <div class="row">
+                                <div class="mt-5 col-8 mx-auto text-center"> 
+                                    <button 
+                                    class="btn btn-secondary text-primary font-weight-bold d-block mx-auto"
+                                    type="submit"
+                                    *ngIf="url || !precentage "
+                                    [disabled]="!memoForm.valid || !selectedImg"
+                                    >Add The Memo
+                                    </button>
+                                    <small 
+                                    class="text-success"
+                                    *ngIf="submitedOnceAtLeast && !memoForm.dirty"
+                                    >This memo has been added successfully,<br>Add more memos if you want ♥
+                                    </small>
+                                                        <!--Spinner to appear while uploading-->
+                                    <div class="spinner-border mt-3" role="status" *ngIf="precentage && !url">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
                             </div>
+                                
+
+
                         </form>
                     </div>
+                </div>
         </div>
     </div>
-</div>
-
 </div>
     
 
