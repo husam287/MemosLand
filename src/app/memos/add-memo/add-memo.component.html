@@ -17,10 +17,12 @@
                                 <label for="title">Title</label>
                                 <input 
                                 class="form-control"
+                                [ngStyle]="{'border':!title.dirty && title.touched ? '1px red solid':''}"
                                 name="title" 
                                 placeholder="Title" 
                                 type="text"
                                 ngModel
+                                #title="ngModel"
                                 required>
                             </div>
 
@@ -29,8 +31,10 @@
                                 <label for="date">Date</label>
                                 <input 
                                 class="form-control"
+                                [ngStyle]="{'border':!date.dirty && date.touched ? '1px red solid':''}"
                                 name="date" 
                                 type="date"
+                                #date="ngModel"
                                 ngModel
                                 required>
                             </div> 
@@ -40,9 +44,11 @@
                                 <label for="info">What happend in that day ♥</label>
                                 <textarea 
                                 class="form-control"
+                                [ngStyle]="{'border':!info.dirty && info.touched ? '1px red solid':''}"
                                 name="info"
                                 rows="5"
-                                ngModel 
+                                ngModel
+                                #info="ngModel"
                                 required>
                                 </textarea>
                             </div>
@@ -52,12 +58,17 @@
                                 <label for="url">Photo</label>
                                 <input 
                                 class="d-block"
+                                [ngStyle]="{'border':!this.selectedImg && this.fileInputClicked? '1px red solid':''}"
                                 name="url"  
                                 type="file"
                                 #fileInput
                                 (change)="onChange($event.target.files)"
+                                (click)="fileInputClicked=true"
                                 required>
                             </div>
+
+                            
+                            
                                 
                             <!--submit button-->
                             <div class="row">

@@ -6,6 +6,7 @@ title:string;
 info:string;
 url:string;
 date:Date;
+id?:any;
 
     constructor(title:string,info:string,photo:string,date:Date){
         this.title=title;

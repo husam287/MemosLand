@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireStorage, AngularFireStorageModule } from 'angularfire2/storage';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../environments/environment';
 
 
@@ -46,6 +47,7 @@ export const firebaseconfig =environment.firebaseConfig;
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
     AngularFireModule.initializeApp(firebaseconfig),
     AngularFirestoreModule,
     AngularFireStorageModule

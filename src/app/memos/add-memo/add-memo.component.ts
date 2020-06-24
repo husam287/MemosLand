@@ -3,6 +3,8 @@ import { NgForm } from '@angular/forms';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage';
 import { finalize} from 'rxjs/operators';
+import { MemosServiceService } from '../memos-service.service';
+import { memoModel } from '../memo.model';
 
 
 @Component({
@@ -12,8 +14,7 @@ import { finalize} from 'rxjs/operators';
 })
 export class AddMemoComponent implements OnInit {
   @ViewChild('memoForm') memoForm:NgForm; //The form reference
-  @ViewChild('fileInput') fileInput:ElementRef;
-
+  @ViewChild('fileInput') fileInput:ElementRef; //file input reference
 
   //________________Upload data _____________________
   task: AngularFireUploadTask; // main task of upload 
@@ -27,8 +28,9 @@ export class AddMemoComponent implements OnInit {
   dataSubject=new Subject<string>(); //to get url after finish upload and use it at (onsubmit)
   snapshotSubscription:Subscription; //to cancel subscription of upload process
   submitedOnceAtLeast=false; //this flag chose give true the form submit one time
+  fileInputClicked=false; //flag to refers file input clicked
 
-  constructor(private storage:AngularFireStorage) { }
+  constructor(private storage:AngularFireStorage ,private memos:MemosServiceService) { }
 
 
   ngOnInit(): void {
@@ -38,15 +40,21 @@ export class AddMemoComponent implements OnInit {
 
 
   onSubmit(){
-    console.log(this.memoForm.form.controls.info.untouched)
     //will start the upload 
     this.startUpload(this.selectedImg);
     
-
+    //subscripe as thisto wait the url to change
    let subs:Subscription= this.dataSubject.subscribe(
-      (url)=>{ //url is the url that will sent after upload complete
-        console.log(url);
+      (url)=>{ //url is the url that will sent after upload complete 
 
+        //sending to formdataedited contained the form data and edit it
+        let formDataEdited=new memoModel(
+          this.memoForm.value.title,
+          this.memoForm.value.info,
+          url,
+          this.memoForm.value.date); //transleted string to date
+          //adding the edited data
+          this.memos.addMemo(formDataEdited);
 
 
 
@@ -54,10 +62,11 @@ export class AddMemoComponent implements OnInit {
         this.submitedOnceAtLeast=true;
         this.snapshotSubscription.unsubscribe();
         this.url=null; //reset the url
-        this.precentage=null; //reset precentage
         this.memoForm.resetForm();
         this.fileInput.nativeElement.value='';
         this.selectedImg=null;
+        this.precentage=null; //reset precentage
+        this.fileInputClicked=false;
         subs.unsubscribe();   
     })
     
