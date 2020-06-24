@@ -67,7 +67,13 @@ export class AddMemoComponent implements OnInit {
      
   
   onChange(event:FileList){
-    this.selectedImg=event;
+    if(event[0].type.split('/')[0]!=='image'){
+      alert('WRONG FILE FORMATE')
+      this.fileInput.nativeElement.value='';
+    }
+    else{
+      this.selectedImg=event;
+    }
   }
 
 
