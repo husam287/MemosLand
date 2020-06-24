@@ -32,12 +32,13 @@ export class AddMemoComponent implements OnInit {
 
 
   ngOnInit(): void {
+    
   }
 
 
 
   onSubmit(){
-
+    console.log(this.memoForm.form.controls.info.untouched)
     //will start the upload 
     this.startUpload(this.selectedImg);
     

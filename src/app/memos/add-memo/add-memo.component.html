@@ -16,7 +16,7 @@
                             <div class="form-group">
                                 <label for="title">Title</label>
                                 <input 
-                                class="form-control" 
+                                class="form-control"
                                 name="title" 
                                 placeholder="Title" 
                                 type="text"
@@ -28,7 +28,7 @@
                             <div class="form-group">
                                 <label for="date">Date</label>
                                 <input 
-                                class="form-control" 
+                                class="form-control"
                                 name="date" 
                                 type="date"
                                 ngModel
@@ -39,7 +39,7 @@
                             <div class="form-group">
                                 <label for="info">What happend in that day ♥</label>
                                 <textarea 
-                                class="form-control" 
+                                class="form-control"
                                 name="info"
                                 rows="5"
                                 ngModel 
@@ -48,10 +48,10 @@
                             </div>
 
                             <!--Photo upload-->
-                            <div class="form-group">
+                            <div class="form-group round">
                                 <label for="url">Photo</label>
                                 <input 
-                                class="d-block" 
+                                class="d-block"
                                 name="url"  
                                 type="file"
                                 #fileInput
@@ -65,7 +65,7 @@
                                     <button 
                                     class="btn btn-secondary text-primary font-weight-bold d-block mx-auto"
                                     type="submit"
-                                    *ngIf="url || !precentage "
+                                    *ngIf="url || !precentage"
                                     [disabled]="!memoForm.valid || !selectedImg"
                                     >Add The Memo
                                     </button>
