@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
@@ -21,8 +21,8 @@ import { AddMemoComponent } from './memos/add-memo/add-memo.component';
 import { MemosLeaderMessageComponent } from './shared/memos-leader-message/memos-leader-message.component';
 import { SigninComponent } from './signin/signin.component';
 import { MemoComponent } from './memos/my-memos/memo/memo.component';
-import { MemoEditComponent } from './memos/my-memos/memo-edit/memo-edit.component';
 import { MemosMessageComponent } from './memos/memos-message/memos-message.component';
+import { MemoEditComponent } from './memos/my-memos/memo/memo-edit/memo-edit.component';
 
 
 export const firebaseconfig =environment.firebaseConfig;
@@ -40,13 +40,14 @@ export const firebaseconfig =environment.firebaseConfig;
     MemosLeaderMessageComponent,
     SigninComponent,
     MemoComponent,
-    MemoEditComponent,
-    MemosMessageComponent
+    MemosMessageComponent,
+    MemoEditComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     AngularFireModule.initializeApp(firebaseconfig),
     AngularFirestoreModule,

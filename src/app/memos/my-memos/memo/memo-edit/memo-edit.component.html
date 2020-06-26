@@ -1,0 +1,101 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+              <div class="card border-light mb-2 shadow">
+                    
+                    <div class="card-body">
+                        <form (ngSubmit)="onSubmit()" #memoForm="ngForm">
+
+                            <!--Username field-->
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input 
+                                class="form-control"
+                                [ngStyle]="{'border':!title.dirty && title.touched ? '1px red solid':''}"
+                                name="title" 
+                                placeholder="Title" 
+                                type="text"
+                                
+                                [ngModel]="defTitle"
+                                #title
+                                required>
+                            </div>
+
+                            <!--Date field-->
+                            <div class="form-group">
+                                <label for="date">Date</label>
+                                <input 
+                                class="form-control"
+                                [ngStyle]="{'border':!date.dirty && date.touched ? '1px red solid':''}"
+                                name="date" 
+                                type="date"
+                                #date
+                                [ngModel]="defDate"
+                                required>
+                            </div> 
+                        
+                            <!--Memory details field-->
+                            <div class="form-group">
+                                <label for="info">What happend in that day ♥</label>
+                                <textarea 
+                                class="form-control"
+                                [ngStyle]="{'border':!info.dirty && info.touched ? '1px red solid':''}"
+                                name="info"
+                                rows="5"
+                                [ngModel]="defInfo"
+                                #info="ngModel"
+                                required>
+                                </textarea>
+                            </div>
+
+                            <!--Photo upload-->
+                            <div class="form-group round">
+                                <label for="url">Select New Photo</label>
+                                <input 
+                                class="d-block"
+                                name="url"  
+                                type="file"
+                                #fileInput
+                                (change)="onChange($event.target.files)"
+                                (click)="fileInputClicked=true">
+                                <small class="form-text text-muted">If you dont want any changes in the photo,Just ignore it</small>
+                            </div>
+
+                            
+                            
+                                
+                            <!--submit button-->
+                            <div class="row">
+                                <div class="mt-5 col-8 mx-auto text-center"> 
+                                    <button 
+                                    class="btn btn-success mx-auto"
+                                    type="submit"
+                                    *ngIf="url || !precentage"
+                                    [disabled]="!memoForm.valid"
+                                    >Update The Memo
+                                    </button>
+                                    <button
+                                    class="btn btn-danger ml-2"
+                                    type="submit"
+                                    *ngIf="url || !precentage"
+                                    (click)="onCancel()">Cancel
+                                    
+                                    </button>
+                                   
+                                                        <!--Spinner to appear while uploading-->
+                                    <div class="spinner-border mt-3" role="status" *ngIf="precentage && !url">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                                
+
+
+                        </form>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+    
+

@@ -1,0 +1,8 @@
+.ref{
+    position: relative;
+}
+.moveToRef{
+    position: absolute;
+    top:0;
+    right: 0;
+}

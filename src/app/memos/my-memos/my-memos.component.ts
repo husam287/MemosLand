@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { memoModel } from '../memo.model';
 import { MemosServiceService } from '../memos-service.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-my-memos',
@@ -11,23 +11,23 @@ import { Subscription } from 'rxjs';
 })
 export class MyMemosComponent implements OnInit,OnDestroy {
   memos:memoModel[];
+  subs1:Subscription;
   constructor(private memosService:MemosServiceService) { }
 
   ngOnInit(): void {
 
+
     //alwas refresh memossss
-    this.onFetching();
+    this.subs1=this.memosService.refresher.subscribe(
+      (data)=>{this.memos=data;}
+    )
+    this.memosService.getMemos();
   }
   ngOnDestroy(){
+    this.subs1.unsubscribe();
   }
 
 
-  private onFetching(){
-    this.memosService.downloadAllMemos()
-    .subscribe(
-      (data)=>{this.memos=data;console.log(data[0])}
-    )
-
-    }
+ 
 }
 

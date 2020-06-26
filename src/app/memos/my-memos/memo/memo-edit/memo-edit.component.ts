@@ -1,20 +1,23 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef} from '@angular/core';
+import { Subject, Observable, Subscription } from 'rxjs';
+import { memoModel } from 'src/app/memos/memo.model';
 import { NgForm } from '@angular/forms';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { AngularFireStorage, AngularFireUploadTask, AngularFireStorageReference } from 'angularfire2/storage';
-import { finalize} from 'rxjs/operators';
-import { MemosServiceService } from '../memos-service.service';
-import { memoModel } from '../memo.model';
-
+import { AngularFireUploadTask, AngularFireStorageReference, AngularFireStorage } from 'angularfire2/storage';
+import { MemosServiceService } from 'src/app/memos/memos-service.service';
+import { finalize } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-add-memo',
-  templateUrl: './add-memo.component.html',
-  styleUrls: ['./add-memo.component.css']
+  selector: 'app-memo-edit',
+  templateUrl: './memo-edit.component.html',
+  styleUrls: ['./memo-edit.component.css']
 })
-export class AddMemoComponent implements OnInit {
+export class MemoEditComponent implements OnInit {
+
   @ViewChild('memoForm') memoForm:NgForm; //The form reference
-  @ViewChild('fileInput') fileInput:ElementRef; //file input reference
+  @ViewChild('fileInput',{static:true}) fileInput:ElementRef; //file input reference
+  @Input('closeEdit') closeEdit:Subject<boolean>;
+  @Input('memo') memo:memoModel;
+  @Input('edit') edit:boolean;
 
   //________________Upload data _____________________
   task: AngularFireUploadTask; // main task of upload 
@@ -28,24 +31,44 @@ export class AddMemoComponent implements OnInit {
   selectedImg=null;  //for the selected image
   dataSubject=new Subject<string>(); //to get url after finish upload and use it at (onsubmit)
   snapshotSubscription:Subscription; //to cancel subscription of upload process
-  submitedOnceAtLeast=false; //this flag chose give true the form submit one time
   fileInputClicked=false; //flag to refers file input clicked
+  subs1:Subscription;
 
-  constructor(private storage:AngularFireStorage ,private memos:MemosServiceService) { }
+  //initialize form
+  defTitle="";
+  defDate="";
+  defInfo="";
+  oldUrl="";
+  oldId="";
+  
+  
 
-
-  ngOnInit(): void {
-    
+  constructor(private storage:AngularFireStorage ,private memos:MemosServiceService) { 
   }
+  
+  
+  ngOnInit(): void {
+    this.defDate=this.memo.date.toISOString().split('T')[0];
+    this.defTitle=this.memo.title;
+    this.defInfo=this.memo.info;
+    this.oldId=this.memo.id; 
+    this.oldUrl=this.memo.url;
+  }
+ 
 
+  onCancel(){
 
+    this.closeEdit.next(false)
+  }
 
   onSubmit(){
     //will start the upload 
-    this.startUpload(this.selectedImg);
+    if(this.selectedImg){
+      this.startUpload(this.selectedImg);
+    
     
     //subscripe as thisto wait the url to change
-   let subs:Subscription= this.dataSubject.subscribe(
+   this.subs1 =this.dataSubject.subscribe(
       (url)=>{ //url is the url that will sent after upload complete 
 
         //sending to formdataedited contained the form data and edit it
@@ -54,23 +77,46 @@ export class AddMemoComponent implements OnInit {
           this.memoForm.value.info,
           url,
           this.memoForm.value.date,
+          this.oldId
           ); //transleted string to date
           //adding the edited data
-          this.memos.addMemo(formDataEdited);
+          this.memos.updateMemo(formDataEdited,this.selectedImg,this.oldUrl);
 
 
 
          //______________RESETING_________________
-        this.submitedOnceAtLeast=true;
         this.snapshotSubscription.unsubscribe();
         this.url=null; //reset the url
-        this.memoForm.resetForm();
-        this.fileInput.nativeElement.value='';
-        this.selectedImg=null;
         this.precentage=null; //reset precentage
         this.fileInputClicked=false;
-        subs.unsubscribe();   
+        this.onCancel();
+        this.subs1.unsubscribe();
     })
+  }
+  //____________dont want to change photo______________________
+  else{
+    //sending to formdataedited contained the form data and edit it
+    let formDataEdited=new memoModel(
+      this.memoForm.value.title,
+      this.memoForm.value.info,
+      this.oldUrl,
+      this.memoForm.value.date,
+      this.oldId
+      ); //transleted string to date
+      //adding the edited data
+      this.memos.updateMemo(formDataEdited,this.selectedImg);
+      this.subs1= this.memos.updatedMemoDone
+      .subscribe(()=>{
+        this.url=null; //reset the url
+        this.precentage=null; //reset precentage
+        this.fileInputClicked=false;
+        this.onCancel();
+        this.subs1.unsubscribe();
+
+      })
+    
+
+  }
     
   }
     
@@ -124,7 +170,5 @@ export class AddMemoComponent implements OnInit {
         })
       ).subscribe()
     }
-
-
 
 }

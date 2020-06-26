@@ -1,11 +1,21 @@
 <div class="row mb-5">
-  <div class="card mb-3 col-12">
+  <div class="card mb-3 col-12 ref">
       <div class="row no-gutters">
         <div class="col-md-4">
           <img src="{{memo.url}}" class="card-img">
         </div>
         <div class="col-md-8">
-          <div class="card-body vertical-center">
+          <div class="moveToRef">
+            <button 
+            class="btn-sm btn-warning text-center mt-2"
+            (click)="onEdit()"><i class="far fa-edit"></i></button>
+            <button 
+            class="btn-sm btn-danger text-center mt-2 ml-1"
+            (click)="onRemove()"><i class="far fa-trash-alt"></i></button>
+
+
+          </div>
+          <div class="card-body">
             <h5 class="card-title">{{id+1}}-{{memo.title}}</h5> <!--#no-title-->
             <p class="card-text">{{memo.info}}</p>
             <p class="card-text"><small class="text-muted">{{memo.date.toDateString()}}</small></p>
@@ -13,4 +23,9 @@
         </div>
       </div>
     </div>
+</div>
+<div class="row" *ngIf="edit" >
+  <div class="col-12">
+    <app-memo-edit [closeEdit]="editObservable" [edit]="edit" [memo]="memo"></app-memo-edit>
+  </div>
 </div>
