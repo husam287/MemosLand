@@ -23,6 +23,7 @@ import { SigninComponent } from './signin/signin.component';
 import { MemoComponent } from './memos/my-memos/memo/memo.component';
 import { MemosMessageComponent } from './memos/memos-message/memos-message.component';
 import { MemoEditComponent } from './memos/my-memos/memo/memo-edit/memo-edit.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 export const firebaseconfig =environment.firebaseConfig;
@@ -41,7 +42,8 @@ export const firebaseconfig =environment.firebaseConfig;
     SigninComponent,
     MemoComponent,
     MemosMessageComponent,
-    MemoEditComponent
+    MemoEditComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

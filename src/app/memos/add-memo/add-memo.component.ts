@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Observable, Subject, Subscription, Subscribable } from 'rxjs';
 import { AngularFireStorage, AngularFireUploadTask, AngularFireStorageReference } from 'angularfire2/storage';
 import { finalize} from 'rxjs/operators';
 import { MemosServiceService } from '../memos-service.service';
@@ -56,20 +56,25 @@ export class AddMemoComponent implements OnInit {
           this.memoForm.value.date,
           ); //transleted string to date
           //adding the edited data
-          this.memos.addMemo(formDataEdited);
+          let subs1:Subscription =this.memos.addMemo(formDataEdited).subscribe(
+            ()=>{
+              //______________RESETING_________________
+             this.submitedOnceAtLeast=true;
+             this.snapshotSubscription.unsubscribe();
+             this.url=null; //reset the url
+             this.precentage=null; //reset precentage
+             this.memoForm.resetForm();
+             this.fileInput.nativeElement.value='';
+             this.selectedImg=null;
+             this.fileInputClicked=false;
+             subs.unsubscribe();
+             subs1.unsubscribe();   
+
+            }
+          );
 
 
 
-         //______________RESETING_________________
-        this.submitedOnceAtLeast=true;
-        this.snapshotSubscription.unsubscribe();
-        this.url=null; //reset the url
-        this.memoForm.resetForm();
-        this.fileInput.nativeElement.value='';
-        this.selectedImg=null;
-        this.precentage=null; //reset precentage
-        this.fileInputClicked=false;
-        subs.unsubscribe();   
     })
     
   }

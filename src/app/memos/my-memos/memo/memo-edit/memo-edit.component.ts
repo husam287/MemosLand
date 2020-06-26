@@ -59,14 +59,13 @@ export class MemoEditComponent implements OnInit {
   onCancel(){
 
     this.closeEdit.next(false)
+    
   }
 
   onSubmit(){
-    //will start the upload 
     if(this.selectedImg){
+
       this.startUpload(this.selectedImg);
-    
-    
     //subscripe as thisto wait the url to change
    this.subs1 =this.dataSubject.subscribe(
       (url)=>{ //url is the url that will sent after upload complete 
@@ -77,20 +76,28 @@ export class MemoEditComponent implements OnInit {
           this.memoForm.value.info,
           url,
           this.memoForm.value.date,
-          this.oldId
-          ); //transleted string to date
+          this.oldId); //transleted string to date
           //adding the edited data
-          this.memos.updateMemo(formDataEdited,this.selectedImg,this.oldUrl);
+          let subs:Subscription =this.memos.updateMemo(formDataEdited,this.selectedImg,this.oldUrl).subscribe(
+            ()=>{
+              this.memos.onFetching();
+              if(!this.selectedImg){
+               //______________RESETING_________________
+              this.snapshotSubscription.unsubscribe();
+              }
+              this.url=null; //reset the url
+              this.precentage=null; //reset precentage
+              this.fileInputClicked=false;
+              this.onCancel();
+              this.subs1.unsubscribe();
+              subs.unsubscribe();
+              
+             }
+            
+          );
 
 
 
-         //______________RESETING_________________
-        this.snapshotSubscription.unsubscribe();
-        this.url=null; //reset the url
-        this.precentage=null; //reset precentage
-        this.fileInputClicked=false;
-        this.onCancel();
-        this.subs1.unsubscribe();
     })
   }
   //____________dont want to change photo______________________
@@ -104,16 +111,22 @@ export class MemoEditComponent implements OnInit {
       this.oldId
       ); //transleted string to date
       //adding the edited data
-      this.memos.updateMemo(formDataEdited,this.selectedImg);
-      this.subs1= this.memos.updatedMemoDone
-      .subscribe(()=>{
-        this.url=null; //reset the url
-        this.precentage=null; //reset precentage
-        this.fileInputClicked=false;
-        this.onCancel();
-        this.subs1.unsubscribe();
-
-      })
+      let subs:Subscription =this.memos.updateMemo(formDataEdited,this.selectedImg,this.oldUrl).subscribe(
+        ()=>{
+          this.memos.onFetching();
+          //______________RESETING_________________
+          if(!this.selectedImg){
+          this.snapshotSubscription.unsubscribe();
+          }
+          this.url=null; //reset the url
+          this.precentage=null; //reset precentage
+          this.fileInputClicked=false;
+          this.onCancel();
+          subs.unsubscribe();
+          
+         }
+        
+      );
     
 
   }

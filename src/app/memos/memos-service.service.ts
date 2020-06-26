@@ -11,12 +11,11 @@ export class MemosServiceService {
   //array of memories
   private memos:memoModel[]=[];
   refresher=new Subject<memoModel[]>();
-  updatedMemoDone=new Subject<boolean>();
   constructor(private http:HttpClient,private storage :AngularFireStorage) { }
 
   
   addMemo(memo:memoModel){
-    this.uploadMemo(memo);
+    return this.uploadMemo(memo);
   }
   getMemos(){
     this.onFetching();
@@ -29,14 +28,7 @@ export class MemosServiceService {
            this.storage.storage.refFromURL(oldurl).delete().then();
          }
          let updatedUrl:string='https://memosland-b1118.firebaseio.com/memos/'+newMemo.id+'.json';
-         this.http.put(updatedUrl,newMemo).subscribe(
-           ()=>{
-             this.onFetching();
-             if(!changePhoto){
-              this.updatedMemoDone.next(true);
-            }
-           }
-         );
+         return this.http.put(updatedUrl,newMemo)
          
       
     
@@ -47,19 +39,15 @@ export class MemosServiceService {
          let url:string=removedMemo.url;
          this.storage.storage.refFromURL(url).delete().then();
          let deleteUrl:string='https://memosland-b1118.firebaseio.com/memos/'+removedMemo.id+'.json';
-         this.http.delete(deleteUrl).subscribe(
-           ()=>{
-             this.onFetching();
-
-           })
+        return this.http.delete(deleteUrl);
   }
 
 
 
   //______________UPLOAD TO THE DATABASE________________
   uploadMemo(memo:memoModel){
-    this.http.post('https://memosland-b1118.firebaseio.com/memos.json',memo)
-    .subscribe();
+    return this.http.post('https://memosland-b1118.firebaseio.com/memos.json',memo)
+    
   }
 
   downloadAllMemos(){
@@ -95,7 +83,7 @@ export class MemosServiceService {
 
     }))
   }
-  private onFetching(){
+  onFetching(){
     let subs:Subscription= this.downloadAllMemos()
     .subscribe(
       (data)=>{

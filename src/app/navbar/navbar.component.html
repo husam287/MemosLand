@@ -9,7 +9,7 @@
             
 
             
-        <button class="navbar-toggler bg-secondary" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler bg-secondary" (click)="closed=false" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
             
@@ -17,17 +17,26 @@
         <div class="collapse navbar-collapse text-center" id="navbarNavAltMarkup"> 
                             <!--ml-auto to make it float to right-->
                 <div class="navbar-nav ml-auto">
-                    <a class="nav-item nav-link text-light bg-primary border-0 rounded" 
-                        [routerLink]="['/home']">Home</a>
+                    <a  class="nav-item nav-link text-light bg-primary border-0 rounded" 
+                        [routerLink]="['/home']"
+                        (click)="close()"
+                        >Home</a>
 
                     <a class="nav-item nav-link text-light bg-secondary border-0 rounded" 
-                        [routerLink]="['/memos','add']">Add Memo</a>
+                        [routerLink]="['/memos','add']"
+                        (click)="close()"
+
+                        >Add Memo</a>
 
                     <a class="nav-item nav-link text-light bg-primary border-0 rounded" 
-                        [routerLink]="['/memos','view']">My Memos</a>
+                        [routerLink]="['/memos','view']"
+                        (click)="close()"
+                        >My Memos</a>
 
                     <a class="nav-item nav-link text-light bg-secondary border-0 rounded" 
-                        [routerLink]="['/sign-in']">Sign In</a>
+                        [routerLink]="['/sign-in']"
+                        (click)="close()"
+                        >Sign In</a>
                 </div>
             </div>
     </div>
