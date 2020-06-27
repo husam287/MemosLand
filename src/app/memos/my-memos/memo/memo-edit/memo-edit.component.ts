@@ -140,7 +140,7 @@ export class MemoEditComponent implements OnInit {
 
     //________REJECTION UNSUPPORTED FORMATES_________
     if(event[0].type.split('/')[0]!=='image'){
-      alert('WRONG FILE FORMATE')
+      alert('WRONG FILE FORMAT')
       this.fileInput.nativeElement.value='';
     }
     //________________________________________________
