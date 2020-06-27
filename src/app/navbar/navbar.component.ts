@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -6,13 +6,16 @@ import { Component, OnInit, ElementRef } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-closed:boolean=true;
+  @ViewChild('clickTheButton',{static:false}) clickTheButton:ElementRef;
+  x=window.matchMedia('(max-width:767px)'); //x from 0 to 767px
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  close(navButton:ElementRef){
-closed=true;    
+  close(){
+    if(this.x.matches){
+      this.clickTheButton.nativeElement.click();
+    }
   }
 }
