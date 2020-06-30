@@ -1,10 +1,9 @@
 import { Component, OnInit, Input, ViewChild, ElementRef} from '@angular/core';
-import { Subject, Observable, Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { memoModel } from 'src/app/memos/memo.model';
 import { NgForm } from '@angular/forms';
-import { AngularFireUploadTask, AngularFireStorageReference, AngularFireStorage } from 'angularfire2/storage';
 import { MemosServiceService } from 'src/app/memos/memos-service.service';
-import { finalize } from 'rxjs/operators';
+import { UploadService } from 'src/app/shared/upload.service';
 
 @Component({
   selector: 'app-memo-edit',
@@ -21,17 +20,12 @@ export class MemoEditComponent implements OnInit {
   @Input('edit') edit:boolean;
 
   //________________Upload data _____________________
-  task: AngularFireUploadTask; // main task of upload 
-  url: Observable <String | null>; //download link 
-  snapshot:Observable <any>; //snapshot of the byte and upload
-  precentage:Observable<number | null>; //used to view when the download complete
-  photoRef:AngularFireStorageReference;
-  //_________________________________________________
+  url:string=null; //download link 
+  loading=false; //used to view when the download complete
+  //________________________________________________
   
 
   selectedImg=null;  //for the selected image
-  dataSubject=new Subject<string>(); //to get url after finish upload and use it at (onsubmit)
-  snapshotSubscription:Subscription; //to cancel subscription of upload process
   fileInputClicked=false; //flag to refers file input clicked
   subs1:Subscription;
 
@@ -44,7 +38,7 @@ export class MemoEditComponent implements OnInit {
   
   
 
-  constructor(private storage:AngularFireStorage ,private memos:MemosServiceService) { 
+  constructor(private uploadService:UploadService ,private memos:MemosServiceService) { 
   }
   
   
@@ -66,11 +60,12 @@ export class MemoEditComponent implements OnInit {
   onSubmit(){
     if(this.selectedImg){
 
-      this.startUpload(this.selectedImg);
+      this.loading=true;
+      this.uploadService.startUpload(this.selectedImg).subscribe();
     //subscripe as thisto wait the url to change
-   this.subs1 =this.dataSubject.subscribe(
+   this.subs1 =this.uploadService.urlSender.subscribe(
       (url)=>{ //url is the url that will sent after upload complete 
-
+        this.url=url;
         //sending to formdataedited contained the form data and edit it
         let formDataEdited=new memoModel(
           this.memoForm.value.title,
@@ -82,12 +77,8 @@ export class MemoEditComponent implements OnInit {
           let subs:Subscription =this.memos.updateMemo(formDataEdited,this.selectedImg,this.oldUrl).subscribe(
             ()=>{
               this.memos.onFetching();
-              if(!this.selectedImg){
-               //______________RESETING_________________
-              this.snapshotSubscription.unsubscribe();
-              }
               this.url=null; //reset the url
-              this.precentage=null; //reset precentage
+              this.loading=false;
               this.fileInputClicked=false;
               this.onCancel();
               this.subs1.unsubscribe();
@@ -116,11 +107,6 @@ export class MemoEditComponent implements OnInit {
         ()=>{
           this.memos.onFetching();
           //______________RESETING_________________
-          if(!this.selectedImg){
-          this.snapshotSubscription.unsubscribe();
-          }
-          this.url=null; //reset the url
-          this.precentage=null; //reset precentage
           this.fileInputClicked=false;
           this.onCancel();
           subs.unsubscribe();
@@ -152,37 +138,5 @@ export class MemoEditComponent implements OnInit {
     }
   }
 
-
-
-
-
-
-
-
-
-
-  //####################### Upload section #########################
-
-
-  
-  startUpload(event:FileList){
-
-    const file=event[0];
-    //_______________Upload Process___________________
-
-    const path =`memos/${new Date().getTime()}_${file.name}`; //the path in firebase cloud
-    const ref=this.storage.ref(path);
-    this.photoRef=this.storage.ref(path);
-      this.task=this.storage.upload(path,file); //Upload the image
-      this.precentage=this.task.percentageChanges();
-      
-      this.snapshotSubscription=this.task.snapshotChanges().pipe(
-        finalize(async ()=>{
-          this.url= await ref.getDownloadURL().toPromise(); //here will wait untill get the url
-          this.dataSubject
-          .next(await ref.getDownloadURL().toPromise()); //sent url to this subject to subscribe in (onSubmit)
-        })
-      ).subscribe()
-    }
 
 }

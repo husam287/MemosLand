@@ -70,20 +70,20 @@
                                     <button 
                                     class="btn btn-success mx-auto"
                                     type="submit"
-                                    *ngIf="url || !precentage"
+                                    *ngIf="url || !loading"
                                     [disabled]="!memoForm.valid"
                                     >Update The Memo
                                     </button>
                                     <button
                                     class="btn btn-danger ml-2"
                                     type="submit"
-                                    *ngIf="url || !precentage"
+                                    *ngIf="url || !loading"
                                     (click)="onCancel()">Cancel
                                     
                                     </button>
                                    
                                                         <!--Spinner to appear while uploading-->
-                                    <div class="spinner-border mt-3" role="status" *ngIf="precentage && !url">
+                                    <div class="spinner-border mt-3" role="status" *ngIf="loading && !url">
                                         <span class="sr-only">Loading...</span>
                                     </div>
                                 </div>

@@ -76,7 +76,7 @@
                                     <button 
                                     class="btn btn-secondary text-primary font-weight-bold d-block mx-auto"
                                     type="submit"
-                                    *ngIf="url || !precentage"
+                                    *ngIf="url || !loading"
                                     [disabled]="!memoForm.valid || !selectedImg"
                                     >Add The Memo
                                     </button>
@@ -86,7 +86,7 @@
                                     >This memo has been added successfully,<br>Add more memos if you want ♥
                                     </small>
                                                         <!--Spinner to appear while uploading-->
-                                    <div class="spinner-border mt-3" role="status" *ngIf="precentage && !url">
+                                    <div class="spinner-border mt-3" role="status" *ngIf="loading && !url">
                                         <span class="sr-only">Loading...</span>
                                     </div>
                                 </div>
