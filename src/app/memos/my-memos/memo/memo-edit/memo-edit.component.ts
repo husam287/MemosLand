@@ -11,6 +11,7 @@ import { finalize } from 'rxjs/operators';
   templateUrl: './memo-edit.component.html',
   styleUrls: ['./memo-edit.component.css']
 })
+
 export class MemoEditComponent implements OnInit {
 
   @ViewChild('memoForm') memoForm:NgForm; //The form reference
