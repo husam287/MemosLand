@@ -1,51 +1,65 @@
-<div class="container">
+<div *ngIf="!isauth" class="container">
         <div class="row">
             <div class="col-12">
                 <div class="card border-light mb-2 shadow">
                         <div class="card-header text-center">SIGN UP</div>
                         <div class="card-body">
-                            <form>
+                            <form (ngSubmit)="onSubmit(signupForm)" #signupForm="ngForm">
                                 <!--Username field-->
                                 <div class="form-group">
-                                    <label for="username">UserName</label>
+                                    <label for="username">Your Name</label>
                                     <input 
                                     class="form-control" 
-                                    name="username" 
-                                    placeholder="UserName" 
+                                    [ngClass]="{'border border-danger':name.touched&&!name.valid}"
+                                    name="name" 
                                     type="text"
+                                    ngModel
+                                    #name="ngModel"
                                     required>
-                                </div>
-                                <!--password field-->
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input 
-                                    class="form-control" 
-                                    name="password" 
-                                    placeholder="Password" 
-                                    type="password"
-                                    required>
-                                    <small id="passwordHelpBlock" class="form-text text-muted">
-                                        Your password must be 8-20 characters long, 
-                                        contain letters and numbers, and must not contain spaces, 
-                                        special characters, or emoji.
-                                    </small>
                                 </div>
                                 <!--email field-->
                                 <div class="form-group">
                                     <label for="email">Email</label>
                                     <input 
                                     class="form-control" 
+                                    [ngClass]="{'border border-danger':email.touched&&!email.valid}"
                                     name="email" 
-                                    placeholder="Email" 
                                     type="email"
-                                    required>
+                                    ngModel
+                                    #email="ngModel"
+                                    required
+                                    email>
+                                </div>
+                                <!--password field-->
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input 
+                                    class="form-control"
+                                    [ngClass]="{'border border-danger':password.touched&&!password.valid}"
+                                    name="password" 
+                                    type="password"
+                                    ngModel
+                                    #password="ngModel"
+                                    required
+                                    password
+                                    minlength="6">
+                                    <small id="passwordHelpBlock" class="form-text text-muted">
+                                        Your password must be more than or equal to 6 characters long
+                                    </small>
                                 </div>
                                 <!--submit button-->
                                 <div class="text-center">
-                                    <button 
+                                    <button
+                                    *ngIf="!isLoading"
+                                    [disabled]="!signupForm.valid" 
                                     class="btn btn-outline-secondary text-primary font-weight-bold"
                                     type="submit">Make Acount
                                     </button>
+                                    <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+                                    <!--Error Area-->
+                                    <div 
+                                    class="alert alert-danger small" 
+                                    *ngIf="errorMessage && !isLoading">{{errorMessage}}</div>
                                 </div>
                             </form>
                         </div>

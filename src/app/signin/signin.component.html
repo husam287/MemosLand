@@ -4,35 +4,47 @@
             <div class="card border-light mb-2 shadow">
                     <div class="card-header text-center">SIGN IN</div>
                     <div class="card-body">
-                        <form>
+                        <form (ngSubmit)="onSubmit(signinForm)" #signinForm="ngForm">
                             <!--Username field-->
                             <div class="form-group">
                                 <label for="username">UserName</label>
                                 <input 
-                                class="form-control" 
-                                name="username" 
-                                placeholder="UserName" 
-                                type="text"
-                                required>
+                                class="form-control"
+                                [ngClass]="{'border border-danger':email.touched&&!email.valid}"
+                                name="email"
+                                type="email"
+                                ngModel
+                                #email="ngModel"
+                                required
+                                email>
                             </div>
                             <!--password field-->
                             <div class="form-group">
                                 <label for="password">Password</label>
                                 <input 
                                 class="form-control" 
+                                [ngClass]="{'border border-danger':password.touched&&!password.valid}"
                                 name="password" 
-                                placeholder="Password" 
+                                ngModel
+                                #password="ngModel"
                                 type="password"
-                                required>
+                                required
+                                password>
                             </div>
                             
                             <!--submit button-->
                             <div class="text-center">
+                                <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
                                 <button 
-                                class="btn btn-outline-secondary text-primary font-weight-bold"
+                                *ngIf="!isLoading"
+                                class="btn btn-outline-secondary text-primary font-weight-bold d-block"
                                 type="submit"
+                                [disabled]="!signinForm.valid"
                                 >Sign In
                                 </button>
+                                <small 
+                                *ngIf="errorMessage && !isLoading"
+                                class="alert alert-danger">{{errorMessage}}</small>
                             </div>
                         </form>
                     </div>

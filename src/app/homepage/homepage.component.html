@@ -5,7 +5,9 @@
             <div class="container">
                 <div class="row">
                     <!--information about website-->
-                    <div class="col-md-7 col-12 mt-5 pt-5">
+                    <div 
+                    class="col-md-7 col-12 mt-5 pt-5"
+                    [ngClass]="{'mx-auto':isAuth}">
                         <div class="vertical-center goToWhitePlace">
 
                                 <!--First paragragh-->
@@ -15,7 +17,14 @@
                                     <app-memosland-text class="h3"></app-memosland-text> ,<br><br>
                                     <app-memosland-text></app-memosland-text> 
                                     is a website where you can add all of your memories. 
-                                    Sign up now for free and spoil your memories.
+                                    <span *ngIf="!isAuth">
+                                        Sign up now for free and spoil your memories.
+                                    </span>
+                                    <span 
+                                    *ngIf="isAuth"
+                                    class="text-primary">
+                                        <br><span class="text-secondary">ohhh!!!</span> {{userName}} ♥♥♥♥ 
+                                    </span>
                                     </p>
                                 </div>
                                 <!--The get started button-->
@@ -28,7 +37,7 @@
                                 font-weight-bold 
                                 mt-5"
                                 routerLink="/memos">
-                                    Get Started
+                                    {{isAuth? userName+"'s Memos":'Get Started'}}
                                 </a>
             
                                 <!--Slogan-->
@@ -45,7 +54,7 @@
                     
                         
 
-                            <div class="col-md-5 col-12 mt-5 pt-5">
+                            <div *ngIf="!isAuth" class="col-md-5 col-12 mt-5 pt-5">
                             <app-signup></app-signup>
                             </div>
                         
@@ -61,6 +70,7 @@
                     <!--The memo into message-->
         
                 <app-memos-leader-message 
+                *ngIf="!isAuth"
                 src="assets/photos/memo-left-slogan.png"
                 title="Hi My Friend, Welcome To MemosLand"
                 message="I'm the memos' leader here in the website, 

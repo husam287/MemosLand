@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { environment } from '../environments/environment';
 
 
@@ -24,7 +24,8 @@ import { MemoComponent } from './memos/my-memos/memo/memo.component';
 import { MemosMessageComponent } from './memos/memos-message/memos-message.component';
 import { MemoEditComponent } from './memos/my-memos/memo/memo-edit/memo-edit.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-
+import { AuthInterceptorService } from './shared/users.interceptor.service';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 
 export const firebaseconfig =environment.firebaseConfig;
 @NgModule({
@@ -43,7 +44,8 @@ export const firebaseconfig =environment.firebaseConfig;
     MemoComponent,
     MemosMessageComponent,
     MemoEditComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +57,9 @@ export const firebaseconfig =environment.firebaseConfig;
     AngularFirestoreModule,
     AngularFireStorageModule
   ],
-  providers: [],
+  providers: [
+    {provide:HTTP_INTERCEPTORS,useClass:AuthInterceptorService,multi:true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
