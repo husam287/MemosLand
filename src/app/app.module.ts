@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireStorageModule } from 'angularfire2/storage';
+import { AngularFireStorageModule, AngularFireStorage } from 'angularfire2/storage';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
+
 import { environment } from '../environments/environment';
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -27,7 +27,6 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthInterceptorService } from './shared/users.interceptor.service';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 
-export const firebaseconfig =environment.firebaseConfig;
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,11 +52,12 @@ export const firebaseconfig =environment.firebaseConfig;
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AngularFireModule.initializeApp(firebaseconfig),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireStorageModule
   ],
   providers: [
+    AngularFireStorage,
     {provide:HTTP_INTERCEPTORS,useClass:AuthInterceptorService,multi:true}
   ],
   bootstrap: [AppComponent]

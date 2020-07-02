@@ -86,9 +86,7 @@
                                     >This memo has been added successfully,<br>Add more memos if you want ♥
                                     </small>
                                                         <!--Spinner to appear while uploading-->
-                                    <div class="spinner-border mt-3" role="status" *ngIf="loading && !url">
-                                        <span class="sr-only">Loading...</span>
-                                    </div>
+                                    <app-loading-spinner *ngIf="loading && !url"></app-loading-spinner>
                                 </div>
                             </div>
                                 

@@ -36,7 +36,7 @@
                                 text-secondary 
                                 font-weight-bold 
                                 mt-5"
-                                routerLink="/memos">
+                                (click)="onGetStarted()">
                                     {{isAuth? userName+"'s Memos":'Get Started'}}
                                 </a>
             
@@ -68,16 +68,18 @@
 
 
                     <!--The memo into message-->
-        
-                <app-memos-leader-message 
-                *ngIf="!isAuth"
-                src="assets/photos/memo-left-slogan.png"
-                title="Hi My Friend, Welcome To MemosLand"
-                message="I'm the memos' leader here in the website, 
-                you can call me ML as my friends do because you are now one of them ♥"
-                [buttons]="[{name:'Sign In',link:'/sign-in'},{name:'Make Account Now',link:'/sign-up'}]"
-                ></app-memos-leader-message>
-        
+                <div #target>
+
+                    <app-memos-leader-message 
+                    *ngIf="!isAuth"
+                    src="assets/photos/memo-left-slogan.png"
+                    title="Hi My Friend, Welcome To MemosLand"
+                    message="I'm the memos' leader here in the website, 
+                    you can call me ML as my friends do because you are now one of them ♥"
+                    [buttons]="[{name:'Sign In',link:'/sign-in'},{name:'Make Account Now',link:'/sign-up'}]"
+                    ></app-memos-leader-message>
+            
+                </div>
         
    
 

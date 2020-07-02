@@ -8,7 +8,7 @@ import { SignupComponent } from './homepage/signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
 import { MemosMessageComponent } from './memos/memos-message/memos-message.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-
+import { AuthGuard } from './shared/auth.guard'
 
 const routes: Routes = [
  {path:'',redirectTo:'home',pathMatch:'full'},
@@ -16,6 +16,7 @@ const routes: Routes = [
  {path:'sign-up',component:SignupComponent},
  {path:'sign-in',component:SigninComponent},
  {path:'memos',component:MemosComponent,
+ canActivate:[AuthGuard],
  children:[
    {path:'',component:MemosMessageComponent},
    {path:'add',component:AddMemoComponent},
@@ -28,7 +29,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{scrollPositionRestoration:'top'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

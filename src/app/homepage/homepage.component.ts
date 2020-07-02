@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { UsersManageService } from '../shared/users-manage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-homepage',
@@ -9,7 +10,8 @@ import { UsersManageService } from '../shared/users-manage.service';
 export class HomepageComponent implements OnInit {
 isAuth=false;
 userName=null;
-  constructor(private userSys:UsersManageService) { }
+@ViewChild('target') target:ElementRef
+  constructor(private userSys:UsersManageService,private router:Router) { }
 
   ngOnInit(): void {
     this.userSys.currentUser
@@ -20,4 +22,12 @@ userName=null;
     })
   }
 
+  onGetStarted(){
+    if(this.isAuth)
+    this.router.navigate(['/memos'])
+    else
+    this.target.nativeElement.scrollIntoView({block:'start',behavior:'smooth'});
+
+
+  }
 }
