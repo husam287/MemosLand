@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersManageService } from './shared/users-manage.service';
+import { MemosServiceService } from './memos/memos-service.service';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +9,10 @@ import { UsersManageService } from './shared/users-manage.service';
 })
 export class AppComponent implements OnInit{
   title = 'MemosLand';
-constructor(private userSys:UsersManageService){}
+constructor(private userSys:UsersManageService,private memosService:MemosServiceService){}
 
 
   ngOnInit(){
-this.userSys.autoLogin();
+    this.userSys.autoLogin();
   }
 }

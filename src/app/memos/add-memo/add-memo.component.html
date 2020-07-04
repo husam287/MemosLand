@@ -82,7 +82,7 @@
                                     </button>
                                     <small 
                                     class="text-success"
-                                    *ngIf="submitedOnceAtLeast && !memoForm.dirty"
+                                    *ngIf="submitedOnceAtLeast && !memoForm.dirty &&( url || !loading )"
                                     >This memo has been added successfully,<br>Add more memos if you want ♥
                                     </small>
                                                         <!--Spinner to appear while uploading-->

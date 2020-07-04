@@ -4,6 +4,7 @@ import {  HttpClient } from '@angular/common/http'
 import { map } from 'rxjs/operators';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { memoModel } from './memo.model';
+import { UsersManageService } from '../shared/users-manage.service';
 
 @Injectable({providedIn:'root'})
 export class MemosServiceService {
@@ -11,7 +12,7 @@ export class MemosServiceService {
   //array of memories
   private memos:memoModel[]=[];
   refresher=new Subject<memoModel[]>();
-  constructor(private http:HttpClient,private storage :AngularFireStorage) { }
+  constructor(private http:HttpClient,private storage :AngularFireStorage,private userSys:UsersManageService) { }
 
   
   addMemo(memo:memoModel){
@@ -22,12 +23,15 @@ export class MemosServiceService {
   }
   
   updateMemo(newMemo:memoModel,changePhoto:boolean,oldurl?:string){
-    
+    let userId=null;
+    this.userSys.currentUser.subscribe((user)=>{
+      userId=user.id;
+    })
          
          if(changePhoto){
            this.storage.storage.refFromURL(oldurl).delete().then();
          }
-         let updatedUrl:string='https://memosland-b1118.firebaseio.com/memos/'+newMemo.id+'.json';
+         let updatedUrl:string='https://memosland-b1118.firebaseio.com/memos_'+userId+'/'+newMemo.id+'.json';
          return this.http.put(updatedUrl,newMemo)
          
       
@@ -35,10 +39,13 @@ export class MemosServiceService {
 
   }
   removeMemo(removedMemo:memoModel){
-  
+    let userId=null;
+    this.userSys.currentUser.subscribe((user)=>{
+      userId=user.id;
+    })
          let url:string=removedMemo.url;
          this.storage.storage.refFromURL(url).delete().then();
-         let deleteUrl:string='https://memosland-b1118.firebaseio.com/memos/'+removedMemo.id+'.json';
+         let deleteUrl:string='https://memosland-b1118.firebaseio.com/memos_'+userId+'/'+removedMemo.id+'.json';
         return this.http.delete(deleteUrl);
   }
 
@@ -46,12 +53,20 @@ export class MemosServiceService {
 
   //______________UPLOAD TO THE DATABASE________________
   uploadMemo(memo:memoModel){
-    return this.http.post('https://memosland-b1118.firebaseio.com/memos.json',memo)
+    let userId=null;
+    this.userSys.currentUser.subscribe((user)=>{
+      userId=user.id;
+    })
+    return this.http.post('https://memosland-b1118.firebaseio.com/memos_'+userId+'.json',memo)
     
   }
 
   downloadAllMemos(){
-   return this.http.get<{[key:string]:memoModel}>('https://memosland-b1118.firebaseio.com/memos.json')
+    let userId=null;
+    this.userSys.currentUser.subscribe((user)=>{
+      userId=user.id;
+    })
+   return this.http.get<{[key:string]:memoModel}>('https://memosland-b1118.firebaseio.com/memos_'+userId+'.json')
     .pipe(map((data)=>{
         const arr:memoModel[]=[];
         for(const key in data){
@@ -69,7 +84,11 @@ export class MemosServiceService {
     
   }
   downloadMemo(key:string){
-    return this.http.get<memoModel>('https://memosland-b1118.firebaseio.com/memos'+'/'+key+'.json')
+    let userId=null;
+    this.userSys.currentUser.subscribe((user)=>{
+      userId=user.id;
+    })
+    return this.http.get<memoModel>('https://memosland-b1118.firebaseio.com/memos_'+userId+'/'+key+'.json')
     .pipe(map((data)=>{
       
         var arr:memoModel=null;

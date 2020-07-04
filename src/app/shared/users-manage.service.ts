@@ -70,17 +70,14 @@ private expireTimer:any;
           displayName:string
       }
       =JSON.parse(localStorage.getItem('userData'));
-      console.log(userData)
       if(!userData){
           return;
       }
   
       const loadedUserData= new User(userData.email,userData.id,userData._token,new Date(userData._tokenExpireDate),userData.displayName)
       if(loadedUserData.token){
-          console.log(loadedUserData)
           this.currentUser.next(loadedUserData);
           const timeToAutoLogout=new Date(userData._tokenExpireDate).getTime() - new Date().getTime();
-          console.log(timeToAutoLogout)
           this.autoLogout(timeToAutoLogout);
       }
       
@@ -89,8 +86,8 @@ private expireTimer:any;
   
   
   logout(){
-      this.currentUser.next(null);
       this.router.navigate(['/home'])
+      this.currentUser.next(null);
       localStorage.removeItem('userData');
       if(this.expireTimer){
           clearTimeout(this.expireTimer);
