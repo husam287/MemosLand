@@ -7,7 +7,7 @@
                         <form (ngSubmit)="onSubmit(signinForm)" #signinForm="ngForm">
                             <!--Username field-->
                             <div class="form-group">
-                                <label for="username">UserName</label>
+                                <label for="username">Email</label>
                                 <input 
                                 class="form-control"
                                 [ngClass]="{'border border-danger':email.touched&&!email.valid}"
@@ -33,18 +33,22 @@
                             </div>
                             
                             <!--submit button-->
-                            <div class="text-center">
-                                <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+                            <div>
+                                <div class="text-center">
+                                    <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+                                </div>
                                 <button 
                                 *ngIf="!isLoading"
-                                class="btn btn-outline-secondary text-primary font-weight-bold d-block"
+                                class="btn btn-outline-secondary text-primary font-weight-bold d-block mx-auto"
                                 type="submit"
                                 [disabled]="!signinForm.valid"
                                 >Sign In
                                 </button>
-                                <small 
-                                *ngIf="errorMessage && !isLoading"
-                                class="alert alert-danger">{{errorMessage}}</small>
+                                <!--Error Area-->
+                                <div 
+                                class="alert alert-danger small text-center" 
+                                *ngIf="errorMessage && !isLoading">{{errorMessage}}
+                                </div>
                             </div>
                         </form>
                     </div>

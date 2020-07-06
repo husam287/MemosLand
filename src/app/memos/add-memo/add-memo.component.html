@@ -76,17 +76,17 @@
                                     <button 
                                     class="btn btn-secondary text-primary font-weight-bold d-block mx-auto"
                                     type="submit"
-                                    *ngIf="url || !loading"
+                                    *ngIf="!loading"
                                     [disabled]="!memoForm.valid || !selectedImg"
                                     >Add The Memo
                                     </button>
                                     <small 
                                     class="text-success"
-                                    *ngIf="submitedOnceAtLeast && !memoForm.dirty &&( url || !loading )"
+                                    *ngIf="submitedOnceAtLeast && !memoForm.dirty &&( !loading)"
                                     >This memo has been added successfully,<br>Add more memos if you want ♥
                                     </small>
                                                         <!--Spinner to appear while uploading-->
-                                    <app-loading-spinner *ngIf="loading && !url"></app-loading-spinner>
+                                    <app-loading-spinner *ngIf="loading"></app-loading-spinner>
                                 </div>
                             </div>
                                 

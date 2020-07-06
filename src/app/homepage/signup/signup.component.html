@@ -58,8 +58,9 @@
                                     <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
                                     <!--Error Area-->
                                     <div 
-                                    class="alert alert-danger small" 
-                                    *ngIf="errorMessage && !isLoading">{{errorMessage}}</div>
+                                    class="alert alert-danger small text-center" 
+                                    *ngIf="errorMessage && !isLoading">{{errorMessage}}
+                                    </div>
                                 </div>
                             </form>
                         </div>

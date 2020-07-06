@@ -58,9 +58,8 @@ export class MemoEditComponent implements OnInit {
   }
 
   onSubmit(){
+    this.loading=true;
     if(this.selectedImg){
-
-      this.loading=true;
       this.uploadService.startUpload(this.selectedImg).subscribe();
     //subscripe as thisto wait the url to change
    this.subs1 =this.uploadService.urlSender.subscribe(
@@ -106,6 +105,7 @@ export class MemoEditComponent implements OnInit {
       let subs:Subscription =this.memos.updateMemo(formDataEdited,this.selectedImg,this.oldUrl).subscribe(
         ()=>{
           this.memos.onFetching();
+          this.loading=false;
           //______________RESETING_________________
           this.fileInputClicked=false;
           this.onCancel();
