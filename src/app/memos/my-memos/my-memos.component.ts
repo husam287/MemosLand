@@ -27,6 +27,22 @@ export class MyMemosComponent implements OnInit,OnDestroy {
     this.subs1.unsubscribe();
   }
 
+  newFirst(){
+    this.memos.sort(
+      (a,b)=>{
+        let result=b.date.getTime()-a.date.getTime();
+        return result;
+      }
+    )
+  }
+  oldFirst(){
+    this.memos.sort(
+      (a,b)=>{
+        let result=a.date.getTime()-b.date.getTime();
+        return result;
+      }
+    )
+  }
 
  
 }
