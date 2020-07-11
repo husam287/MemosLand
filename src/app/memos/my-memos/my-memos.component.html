@@ -1,14 +1,14 @@
 <div class="container">
    <div class="row mt-5 pt-3 justify-content-between">
-           <div class="col-4">
+           <div class="col-6">
                    <button class="btn btn-success" [routerLink]="['../','add']"><i class="fas fa-plus"></i> New</button>
            </div>
-           <div class="col-4 text-right">
+           <div class="col-6 text-right">
                 <div class="dropdown">
-                        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-sort-amount-up-alt"></i> Sort
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <div class="dropdown-menu dropdown-menu-right">
                           <button class="dropdown-item" type="button" (click)="oldFirst()">Oldest Memos <i class="fas fa-sort-up"></i> </button>
                           <button class="dropdown-item" type="button" (click)="newFirst()">Newest Memos <i class="fas fa-sort-up"></i></button>
                         </div>
